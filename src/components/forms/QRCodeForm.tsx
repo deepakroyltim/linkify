@@ -14,9 +14,10 @@ import { AnimatePresence } from "framer-motion";
 
 interface QRCodeFormProps {
   formToggle: React.Dispatch<React.SetStateAction<number>>;
+  isAuthenticated: boolean;
 }
 
-const QRCodeForm = ({ formToggle }: QRCodeFormProps) => {
+const QRCodeForm = ({ formToggle, isAuthenticated }: QRCodeFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [qrCode, setQRCode] = useState<string | "">("");
@@ -42,7 +43,9 @@ const QRCodeForm = ({ formToggle }: QRCodeFormProps) => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_QR_GENERATOR}/generateqr?originalUrl=${originalUrl}`
+        `${
+          import.meta.env.VITE_API_QR_GENERATOR
+        }/generateqr?originalUrl=${originalUrl}`
       );
       console.log(response);
 
@@ -86,13 +89,15 @@ const QRCodeForm = ({ formToggle }: QRCodeFormProps) => {
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 rounded-2xl p-6 gap-6 shadow-lg">
+    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 dark:bg-blue-950 rounded-2xl p-6 gap-6 shadow-lg">
       <AnimatePresence>{showConfetti && <ConfettiBurst />}</AnimatePresence>
 
       <div className="relative flex flex-col md:flex-row justify-between items-center w-full gap-6">
         {/* Left Section */}
         <div className="w-full md:max-w-2xl space-y-12">
-          <h4 className="text-xl font-bold text-gray-800">Create a QR Code</h4>
+          <h4 className="text-xl font-bold text-gray-800 dark:text-white">
+            Create a QR Code
+          </h4>
 
           <Form onSubmit={handleSubmit} className="space-y-4" ref={formRef}>
             <Input
@@ -132,8 +137,10 @@ const QRCodeForm = ({ formToggle }: QRCodeFormProps) => {
 
       {/* QR Code Display */}
       {qrCode && (
-        <div className="w-full bg-white border-blue-600 border-1 shadow-md rounded-2xl p-6 space-y-10">
-          <h2 className="text-lg font-semibold mb-2">Your new QR Code:</h2>
+        <div className="w-full bg-white dark:bg-gray-700 border-blue-600 dark:border-gray-600 border-1 shadow-md rounded-2xl p-6 space-y-10">
+          <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">
+            Your new QR Code:
+          </h2>
 
           <div className="flex md:flex-row justify-between items-center">
             {/* Left Section: QR Code and Download Button Side-by-Side */}
@@ -159,7 +166,7 @@ const QRCodeForm = ({ formToggle }: QRCodeFormProps) => {
             </div>
 
             {/* Divider */}
-            <div className="hidden md:block w-px h-12 bg-gray-300" />
+            <div className="hidden md:block w-px h-12 bg-gray-300 dark:bg-gray-600" />
 
             {/* Right Section: Create Short Link Button */}
             <div className="flex-1 flex justify-center">
@@ -168,12 +175,21 @@ const QRCodeForm = ({ formToggle }: QRCodeFormProps) => {
               </Button>
             </div>
           </div>
-
-          <Alert
-            className="mt-6"
-            color="default"
-            title="Copy your custom link and share it anywhere—your content, your way, anytime!"
-          />
+          <div className="flex flex-col gap-2">
+            <Alert
+              className="mt-6"
+              color="default"
+              variant="solid"
+              title="Download your QR COde and share it anywhere—your content, your way, anytime!"
+            />
+            {!isAuthenticated && (
+              <Alert
+                color="warning"
+                variant="solid"
+                title="If you want to save your data then please create a free account."
+              />
+            )}
+          </div>
         </div>
       )}
     </div>
