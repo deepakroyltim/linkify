@@ -1,23 +1,17 @@
-import Layout from "./components/Layout";
-
-import AnimatedBackground from "./components/Animation";
-import AnimatedBackgroundTwo from "./components/AnimationTwo";
-import HeroComponent from "./components/HeroComponent";
-import FormComponent from "./components/FormComponent";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 function App() {
   return (
-    <Layout>
-      <section className="w-full bg-amber-50 py-6">
-        <AnimatedBackground />
-        <HeroComponent />
-      </section>
-
-      <section className="w-full bg-blue-950 py-20">
-        <AnimatedBackgroundTwo />
-        <FormComponent />
-      </section>
-    </Layout>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </Router>
   );
 }
 
