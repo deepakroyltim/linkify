@@ -7,13 +7,14 @@ import {
   Button,
   Tooltip,
 } from "@heroui/react";
+import { Link as RouterLink } from "react-router-dom";
 import { FaPaperclip } from "react-icons/fa6";
 
 const NavbarComponent = () => {
   return (
     <Navbar isBlurred className="shadow bg-amber-50">
       <NavbarBrand>
-        <Link href="/" color="foreground" className="flex">
+        <Link as={RouterLink} to="/" color="foreground" className="flex">
           <h1 className="flex justify-center items-center text-3xl font-bold space-x-0">
             <FaPaperclip className="text-primary me-2" />
             <span className="text-primary">Li</span>
@@ -47,16 +48,12 @@ const NavbarComponent = () => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Tooltip content="Feature coming soon">
-            <Link href="#">Login</Link>
-          </Tooltip>
+          <Link as={RouterLink} to="/signin">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Tooltip content="Feature coming soon">
-            <Button as={Link} color="primary" href="#" variant="flat">
-              Sign Up
-            </Button>
-          </Tooltip>
+          <Button as={RouterLink} to="/signup" color="primary" variant="flat">
+            Sign Up
+          </Button>
         </NavbarItem>
       </NavbarContent>
     </Navbar>

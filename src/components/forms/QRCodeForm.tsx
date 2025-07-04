@@ -4,47 +4,34 @@ import {
   Input,
   Form,
   Alert,
-  Link,
   Tooltip,
   addToast,
 } from "@heroui/react";
 import React, { useRef, useState } from "react";
-import { BsArrowRight, BsCopy } from "react-icons/bs";
-import ConfettiBurst from "./ConfettiBurst";
+import { BsArrowRight, BsDownload } from "react-icons/bs";
+import ConfettiBurst from "../animations/ConfettiBurst";
 import { AnimatePresence } from "framer-motion";
 
-interface ShortLinkFormProps {
+interface QRCodeFormProps {
   formToggle: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
+const QRCodeForm = ({ formToggle }: QRCodeFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [shortLink, setShortLink] = useState<string | "">("");
-  const [copied, setCopied] = useState<boolean>(false);
+  const [qrCode, setQRCode] = useState<string | "">("");
   const [showConfetti, setShowConfetti] = useState(false);
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const copyLink = async (shortLink: string) => {
-    console.log(shortLink);
-    try {
-      await navigator.clipboard.writeText(shortLink);
-      setCopied(true);
+  const downloadQRCode = () => {
+    if (!qrCode) return;
 
-      addToast({
-        title: "Link Copied to clipboard",
-        timeout: 3000,
-        shouldShowTimeoutProgress: true,
-        variant: "bordered",
-        color: "primary",
-      });
-
-      setTimeout(() => {
-        setCopied(false);
-      }, 3000);
-    } catch (error) {
-      console.error("Failed to copy!", error);
-    }
+    const link = document.createElement("a");
+    link.href = qrCode;
+    link.download = "qr-code.png"; // You can customize the filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -55,19 +42,19 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL_SHORTENER}/shorten?originalUrl=${originalUrl}`
+        `${import.meta.env.VITE_API_QR_GENERATOR}/generateqr?originalUrl=${originalUrl}`
       );
       console.log(response);
 
       if (!response.ok) {
-        throw new Error("Failed to fetch short link");
+        throw new Error("Failed to generate QR Code");
       }
 
       const data = await response.json();
-      setShortLink(data.newUrl as string);
+      setQRCode(data.rawCode as string);
 
       addToast({
-        title: "Short Link is created successfully.",
+        title: "QR Code is created successfully.",
         timeout: 5000,
         shouldShowTimeoutProgress: true,
         variant: "solid",
@@ -87,7 +74,7 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
         }, 4000);
       } else {
         setError(
-          "Unable to generate short link right now. Please try after some time"
+          "Unable to generate QR Code right now. Please try after some time"
         );
         setTimeout(() => {
           setError("");
@@ -105,9 +92,7 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
       <div className="relative flex flex-col md:flex-row justify-between items-center w-full gap-6">
         {/* Left Section */}
         <div className="w-full md:max-w-2xl space-y-12">
-          <h4 className="text-xl font-bold text-gray-800">
-            Shorten a long link
-          </h4>
+          <h4 className="text-xl font-bold text-gray-800">Create a QR Code</h4>
 
           <Form onSubmit={handleSubmit} className="space-y-4" ref={formRef}>
             <Input
@@ -128,7 +113,7 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
               variant="flat"
               isLoading={isLoading}
             >
-              Generate Short Link <BsArrowRight />
+              Generate QR Code <BsArrowRight />
             </Button>
             {error && <Alert color="danger" title={error} />}
           </Form>
@@ -137,46 +122,49 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
         {/* Right Section - Image */}
         <div className="w-full md:w-auto">
           <Image
-            alt="URL Shortener illustration"
-            className="object-cover rounded-xl shadow-md"
-            src="/url-shortener.svg"
+            alt="QR Code Generator illustration"
+            className="object-cover rounded-xl"
+            src="/qr-generator.svg"
             width={270}
           />
         </div>
       </div>
 
-      {/* Short Link Display */}
-      {shortLink && (
-        <div className="w-full bg-white  border-blue-600 border-1 shadow-md rounded-2xl p-6 space-y-10">
+      {/* QR Code Display */}
+      {qrCode && (
+        <div className="w-full bg-white border-blue-600 border-1 shadow-md rounded-2xl p-6 space-y-10">
+          <h2 className="text-lg font-semibold mb-2">Your new QR Code:</h2>
+
           <div className="flex md:flex-row justify-between items-center">
-            <div className="">
-              <h2 className="text-lg font-semibold mb-2">
-                Your new short link:
-              </h2>
-              <div className="flex items-center space-x-4">
-                <Link isExternal showAnchorIcon href={shortLink}>
-                  {shortLink}
-                </Link>
-                <div>|</div>
+            {/* Left Section: QR Code and Download Button Side-by-Side */}
+            <div className="flex-1 flex justify-center">
+              <div className="flex items-center space-x-6">
+                <Image
+                  src={qrCode}
+                  alt="QR Code"
+                  className="w-64 h-64"
+                  isBlurred
+                />
                 <Tooltip content="Copy link">
                   <Button
-                    isDisabled={copied}
                     color="default"
                     className="max-w-xs"
                     size="sm"
-                    onPress={() => copyLink(shortLink)}
+                    onPress={() => downloadQRCode()}
                   >
-                    <BsCopy className="w-5 h-5" />
+                    <BsDownload className="w-5 h-5" />
                   </Button>
                 </Tooltip>
               </div>
             </div>
 
+            {/* Divider */}
             <div className="hidden md:block w-px h-12 bg-gray-300" />
 
-            <div>
-              <Button color="primary" onPress={() => formToggle(2)}>
-                Let's Create QR Code
+            {/* Right Section: Create Short Link Button */}
+            <div className="flex-1 flex justify-center">
+              <Button color="primary" onPress={() => formToggle(1)}>
+                Let's Create Short Link
               </Button>
             </div>
           </div>
@@ -192,4 +180,4 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
   );
 };
 
-export default ShortLinkForm;
+export default QRCodeForm;
