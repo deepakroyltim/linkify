@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linkify Favicon Generator</title>
+</head>
+<body>
+    <canvas id="favicon" width="32" height="32" style="border: 1px solid #ccc;"></canvas>
+    <br><br>
+    <button onclick="downloadFavicon()">Download Favicon</button>
+    
+    <script>
+        const canvas = document.getElementById('favicon');
+        const ctx = canvas.getContext('2d');
+        
+        // Set background color (primary blue)
+        ctx.fillStyle = '#006FEE';
+        ctx.fillRect(0, 0, 32, 32);
+        
+        // Draw paperclip icon in white
+        ctx.fillStyle = '#FFFFFF';
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 2;
+        
+        // Simplified paperclip shape
+        ctx.beginPath();
+        // Outer curve
+        ctx.arc(16, 12, 8, 0, Math.PI, false);
+        // Inner curve
+        ctx.arc(16, 16, 4, Math.PI, 0, false);
+        // Connecting lines
+        ctx.moveTo(8, 12);
+        ctx.lineTo(8, 20);
+        ctx.moveTo(24, 12);
+        ctx.lineTo(24, 20);
+        ctx.stroke();
+        
+        function downloadFavicon() {
+            const link = document.createElement('a');
+            link.download = 'favicon.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+</html>

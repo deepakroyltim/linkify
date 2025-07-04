@@ -12,12 +12,14 @@ import React, { useRef, useState } from "react";
 import { BsArrowRight, BsCopy } from "react-icons/bs";
 import ConfettiBurst from "../animations/ConfettiBurst";
 import { AnimatePresence } from "framer-motion";
+import { authService } from "../../services/authService";
 
 interface ShortLinkFormProps {
   formToggle: React.Dispatch<React.SetStateAction<number>>;
+  isAuthenticated: boolean;
 }
 
-const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
+const ShortLinkForm = ({ formToggle, isAuthenticated }: ShortLinkFormProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [shortLink, setShortLink] = useState<string | "">("");
@@ -54,9 +56,18 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
     const originalUrl = formData.get("originalUrl");
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL_SHORTENER}/shorten?originalUrl=${originalUrl}`
-      );
+      const user = authService.getCurrentUser();
+      const userId = user ? user.id : null;
+
+      const url = userId
+        ? `${
+            import.meta.env.VITE_API_URL_SHORTENER
+          }/shorten?originalUrl=${originalUrl}&userId=${userId}`
+        : `${
+            import.meta.env.VITE_API_URL_SHORTENER
+          }/shorten?originalUrl=${originalUrl}`;
+
+      const response = await fetch(url);
       console.log(response);
 
       if (!response.ok) {
@@ -99,13 +110,13 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 rounded-2xl p-6 gap-6 shadow-lg">
+    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 dark:bg-blue-950 rounded-2xl p-6 gap-6 shadow-lg">
       <AnimatePresence>{showConfetti && <ConfettiBurst />}</AnimatePresence>
 
       <div className="relative flex flex-col md:flex-row justify-between items-center w-full gap-6">
         {/* Left Section */}
         <div className="w-full md:max-w-2xl space-y-12">
-          <h4 className="text-xl font-bold text-gray-800">
+          <h4 className="text-xl font-bold text-gray-800 dark:text-white">
             Shorten a long link
           </h4>
 
@@ -147,10 +158,10 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
 
       {/* Short Link Display */}
       {shortLink && (
-        <div className="w-full bg-white  border-blue-600 border-1 shadow-md rounded-2xl p-6 space-y-10">
+        <div className="w-full bg-white dark:bg-gray-700 border-blue-600 dark:border-gray-600 border-1 shadow-md rounded-2xl p-6 space-y-10">
           <div className="flex md:flex-row justify-between items-center">
             <div className="">
-              <h2 className="text-lg font-semibold mb-2">
+              <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">
                 Your new short link:
               </h2>
               <div className="flex items-center space-x-4">
@@ -172,7 +183,7 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
               </div>
             </div>
 
-            <div className="hidden md:block w-px h-12 bg-gray-300" />
+            <div className="hidden md:block w-px h-12 bg-gray-300 dark:bg-gray-600" />
 
             <div>
               <Button color="primary" onPress={() => formToggle(2)}>
@@ -180,12 +191,21 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
               </Button>
             </div>
           </div>
-
-          <Alert
-            className="mt-6"
-            color="default"
-            title="Copy your custom link and share it anywhere—your content, your way, anytime!"
-          />
+          <div className="flex flex-col gap-2">
+            <Alert
+              className="mt-6"
+              color="default"
+              variant="solid"
+              title="Copy your custom link and share it anywhere—your content, your way, anytime!"
+            />
+            {!isAuthenticated && (
+              <Alert
+                color="warning"
+                variant="solid"
+                title="If you want to save your data then please create a free account."
+              />
+            )}
+          </div>
         </div>
       )}
     </div>

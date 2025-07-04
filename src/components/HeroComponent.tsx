@@ -4,10 +4,9 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  Link,
   Image,
 } from "@heroui/react";
-import { BsSend } from "react-icons/bs";
+import { BsSend, BsBook, BsArrowRight } from "react-icons/bs";
 
 const HeroComponent = () => {
   return (
@@ -22,7 +21,17 @@ const HeroComponent = () => {
           and QR Codes. Build meaningful connections with your
           audience—anywhere, anytime—with Linkify's unified toolkit.
         </h3>
-        <Button size="lg" color="primary" endContent={<BsSend />}>
+        <Button
+          size="lg"
+          color="primary"
+          endContent={<BsSend />}
+          onPress={() => {
+            const element = document.getElementById("form-section");
+            if (element) {
+              element.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+        >
           Let's Start For Free
         </Button>
       </div>
@@ -39,15 +48,34 @@ const HeroComponent = () => {
               width={270}
             />
           </CardBody>
-          <CardFooter>
+          <CardFooter className="flex-col gap-2">
             <Button
-              as={Link}
-              href="#"
               color="default"
               className="w-full rounded-full"
-              showAnchorIcon
+              endContent={<BsArrowRight />}
+              onPress={() => {
+                const element = document.getElementById("form-section");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth" });
+                  // Set form to URL shortener (index 1)
+                  setTimeout(() => {
+                    const formToggleBtn = document.querySelector(
+                      '[data-form="1"]'
+                    ) as HTMLButtonElement;
+                    if (formToggleBtn) formToggleBtn.click();
+                  }, 500);
+                }
+              }}
             >
-              Let's Create
+              Start Shortening
+            </Button>
+            <Button
+              color="default"
+              className="w-full rounded-full"
+              endContent={<BsBook />}
+              onPress={() => (window.location.href = "/guide")}
+            >
+              Learn How
             </Button>
           </CardFooter>
         </Card>
@@ -63,15 +91,34 @@ const HeroComponent = () => {
               width={270}
             />
           </CardBody>
-          <CardFooter>
+          <CardFooter className="flex-col gap-2">
             <Button
-              as={Link}
-              href="#"
               color="default"
               className="w-full rounded-full"
-              showAnchorIcon
+              endContent={<BsArrowRight />}
+              onPress={() => {
+                const element = document.getElementById("form-section");
+                if (element) {
+                  element.scrollIntoView({ behavior: "smooth" });
+                  // Set form to QR generator (index 2)
+                  setTimeout(() => {
+                    const formToggleBtn = document.querySelector(
+                      '[data-form="2"]'
+                    ) as HTMLButtonElement;
+                    if (formToggleBtn) formToggleBtn.click();
+                  }, 500);
+                }
+              }}
             >
-              Learn More
+              Generate QR Code
+            </Button>
+            <Button
+              color="default"
+              className="w-full rounded-full"
+              endContent={<BsBook />}
+              onPress={() => (window.location.href = "/guide")}
+            >
+              Learn How
             </Button>
           </CardFooter>
         </Card>

@@ -26,6 +26,7 @@ Before running the application, ensure you have the following backend services r
 
 - URL Shortener API: `http://localhost:5171`
 - QR Code Generator API: `http://localhost:5172`
+- Authentication API: `http://localhost:5173` (Node.js backend)
 
 ## Environment Variables
 
@@ -39,6 +40,7 @@ Configure your API endpoints:
 ```
 VITE_API_URL_SHORTENER=http://localhost:5171
 VITE_API_QR_GENERATOR=http://localhost:5172
+VITE_API_AUTH_URL=http://localhost:5173/api
 ```
 
 ## Getting Started
