@@ -33,7 +33,7 @@ const Contact = () => {
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Contact Form */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm">
               <div className="flex items-center mb-6">
                 <FaComments className="text-primary text-2xl mr-3" />
                 <h2 className="text-2xl font-bold">Send us a Message</h2>
@@ -113,7 +113,7 @@ const Contact = () => {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-800 dark:to-gray-700 rounded-lg p-6 text-center">
+              <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 text-center">
                 <h4 className="font-bold text-lg mb-2">
                   Quick Response Guaranteed
                 </h4>

@@ -110,7 +110,7 @@ const ShortLinkForm = ({ formToggle, isAuthenticated }: ShortLinkFormProps) => {
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 dark:bg-blue-950 rounded-2xl p-6 gap-6 shadow-lg">
+    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 dark:bg-gray-800 dark:border dark:border-gray-600 rounded-2xl p-6 gap-6 shadow-lg">
       <AnimatePresence>{showConfetti && <ConfettiBurst />}</AnimatePresence>
 
       <div className="relative flex flex-col md:flex-row justify-between items-center w-full gap-6">

@@ -89,7 +89,7 @@ const Pricing = () => {
           </div>
 
           {/* Why Free Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-8 mb-12 shadow-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 mb-12 shadow-sm">
             <h2 className="text-2xl font-bold mb-4 text-center">
               Why is Linkify Free?
             </h2>
@@ -107,7 +107,7 @@ const Pricing = () => {
           </div>
 
           {/* Donation Section */}
-          <div className="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-purple-900 rounded-lg p-8 text-center shadow-sm">
+          <div className="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-purple-900 rounded-2xl p-8 text-center shadow-sm">
             <FaHeart className="text-4xl text-pink-500 mx-auto mb-4" />
             <h2 className="text-2xl font-bold mb-4">Support Our Mission</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">

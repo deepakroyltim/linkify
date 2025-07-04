@@ -19,7 +19,7 @@ const About = () => {
           </div>
 
           {/* Mission Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-8 mb-12 shadow-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 mb-12 shadow-sm">
             <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
               At Linkify, we believe that every connection matters. Our mission
@@ -32,7 +32,7 @@ const About = () => {
 
           {/* Features Grid */}
           <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center shadow-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-sm">
               <FaRocket className="text-3xl text-primary mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">Fast & Reliable</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -40,7 +40,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center shadow-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-sm">
               <FaUsers className="text-3xl text-primary mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">User-Friendly</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -49,7 +49,7 @@ const About = () => {
               </p>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center shadow-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 text-center shadow-sm">
               <FaShield className="text-3xl text-primary mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">Secure</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -59,7 +59,7 @@ const About = () => {
           </div>
 
           {/* Story Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-sm">
             <h2 className="text-2xl font-bold mb-4">Our Story</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
               Founded in 2024, Linkify was born from the need to make link
