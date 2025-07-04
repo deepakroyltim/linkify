@@ -12,11 +12,11 @@ const HeroComponent = () => {
   return (
     <div className="flex flex-col justify-center items-center space-y-10">
       <div className="flex flex-col justify-center w-full max-w-4xl items-center space-y-8 ">
-        <h4 className="text-xl italic text-gray-700">
+        <h4 className="text-xl italic text-gray-700 dark:text-gray-300">
           Big Connections Start with a Click or a Scan
         </h4>
-        <h1 className="text-4xl font-bold">Welcome to Linkify </h1>
-        <h3 className="text-2xl text-center ">
+        <h1 className="text-4xl font-bold text-foreground">Welcome to Linkify </h1>
+        <h3 className="text-2xl text-center text-foreground/80">
           Your all-in-one platform to create, manage, and share branded links
           and QR Codes. Build meaningful connections with your
           audience—anywhere, anytime—with Linkify's unified toolkit.
@@ -36,7 +36,7 @@ const HeroComponent = () => {
         </Button>
       </div>
       <div className="flex justify-center gap-8">
-        <Card className="py-4 bg-blue-950 text-white p-6">
+        <Card className="py-4 bg-blue-950 dark:bg-gray-800 text-white p-6">
           <CardHeader className="pb-0 pt-2 px-4 flex-col items-center">
             <h4 className="font-bold text-large">URL Shortener</h4>
           </CardHeader>
@@ -79,7 +79,7 @@ const HeroComponent = () => {
             </Button>
           </CardFooter>
         </Card>
-        <Card className="py-4 bg-blue-950 text-white p-6">
+        <Card className="py-4 bg-blue-950 dark:bg-gray-800 text-white p-6">
           <CardHeader className="pb-0 pt-2 px-4 flex-col items-center">
             <h4 className="font-bold text-large">QR Code</h4>
           </CardHeader>

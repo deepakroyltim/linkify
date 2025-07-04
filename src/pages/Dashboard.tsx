@@ -141,7 +141,12 @@ const Dashboard = () => {
           <div className="flex justify-between">
             <h1 className="text-3xl font-bold mb-8">My Dashboard</h1>
             {links.length > 0 && (
-              <Button color="primary" as={RouterLink} to="/#form-section" size="sm">
+              <Button
+                color="primary"
+                as={RouterLink}
+                to="/#form-section"
+                size="sm"
+              >
                 Create New Link
               </Button>
             )}
@@ -150,7 +155,7 @@ const Dashboard = () => {
           {error && <Alert color="danger" className="mb-6" title={error} />}
 
           {links.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div className="flex flex-col items-center justify-center py-16 bg-gray-50 dark:bg-gray-800 rounded-2xl">
               <h3 className="text-xl font-semibold mb-4">No links yet</h3>
               <p className="text-gray-600 mb-6">
                 Start creating shortened links to see them here
