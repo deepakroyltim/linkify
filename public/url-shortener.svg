@@ -1,0 +1,10 @@
+<svg width="270" height="200" viewBox="0 0 270 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="270" height="200" fill="#3b82f6" rx="12"/>
+  <rect x="20" y="40" width="230" height="12" fill="#ffffff" rx="6" opacity="0.3"/>
+  <rect x="20" y="60" width="180" height="8" fill="#ffffff" rx="4" opacity="0.5"/>
+  <rect x="20" y="100" width="60" height="20" fill="#10b981" rx="10"/>
+  <text x="135" y="140" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="14" font-weight="bold">URL Shortener</text>
+  <path d="M50 160 L80 160 M65 150 L65 170" stroke="#ffffff" stroke-width="2" fill="none"/>
+  <circle cx="200" cy="165" r="15" fill="#ffffff" opacity="0.2"/>
+  <path d="M195 165 L205 165 M200 160 L200 170" stroke="#ffffff" stroke-width="2"/>
+</svg>

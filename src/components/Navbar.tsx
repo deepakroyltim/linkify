@@ -5,6 +5,7 @@ import {
   NavbarItem,
   Link,
   Button,
+  Tooltip,
 } from "@heroui/react";
 import { FaPaperclip } from "react-icons/fa6";
 
@@ -12,40 +13,50 @@ const NavbarComponent = () => {
   return (
     <Navbar isBlurred className="shadow bg-amber-50">
       <NavbarBrand>
-        <div className="flex">
+        <Link href="/" color="foreground" className="flex">
           <h1 className="flex justify-center items-center text-3xl font-bold space-x-0">
             <FaPaperclip className="text-primary me-2" />
             <span className="text-primary">Li</span>
             <span>nki</span>
             <span className="text-primary">fy</span>
           </h1>
-        </div>
+        </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
+          <Tooltip content="Feature coming soon">
+            <Link color="foreground" href="#">
+              Features
+            </Link>
+          </Tooltip>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link aria-current="page" href="#">
-            Customers
-          </Link>
+          <Tooltip content="Feature coming soon">
+            <Link aria-current="page" href="#">
+              Customers
+            </Link>
+          </Tooltip>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
+          <Tooltip content="Feature coming soon">
+            <Link color="foreground" href="#">
+              Integrations
+            </Link>
+          </Tooltip>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
+          <Tooltip content="Feature coming soon">
+            <Link href="#">Login</Link>
+          </Tooltip>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
+          <Tooltip content="Feature coming soon">
+            <Button as={Link} color="primary" href="#" variant="flat">
+              Sign Up
+            </Button>
+          </Tooltip>
         </NavbarItem>
       </NavbarContent>
     </Navbar>

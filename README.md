@@ -1,69 +1,79 @@
-# React + TypeScript + Vite
+# Linkify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Your all-in-one platform to create, manage, and share branded links and QR Codes. Build meaningful connections with your audience—anywhere, anytime—with Linkify's unified toolkit.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **URL Shortener**: Convert long URLs into shortened, shareable links
+- **QR Code Generator**: Create downloadable QR codes from any URL
+- **Copy to Clipboard**: One-click copying of shortened links
+- **Download QR Codes**: Save QR codes as PNG images
+- **Responsive Design**: Works seamlessly on desktop and mobile
+- **Toast Notifications**: Real-time feedback for user actions
+- **Animated UI**: Smooth transitions and confetti celebrations
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Frontend**: React 19 + TypeScript + Vite
+- **UI Library**: HeroUI (NextUI-based components)
+- **Styling**: Tailwind CSS 4.x
+- **Icons**: React Icons
+- **Animations**: Framer Motion
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Prerequisites
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Before running the application, ensure you have the following backend services running:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- URL Shortener API: `http://localhost:5171`
+- QR Code Generator API: `http://localhost:5172`
+
+## Getting Started
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Start development server**:
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for production**:
+   ```bash
+   npm run build
+   ```
+
+4. **Preview production build**:
+   ```bash
+   npm run preview
+   ```
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── FormComponent.tsx      # Main form switcher
+│   ├── ShortLinkForm.tsx      # URL shortening form
+│   ├── QRCodeForm.tsx         # QR code generation form
+│   ├── HeroComponent.tsx      # Landing hero section
+│   ├── Layout.tsx             # App layout wrapper
+│   ├── Navbar.tsx             # Navigation component
+│   ├── Footer.tsx             # Footer component
+│   └── Animation.tsx          # Background animations
+├── App.tsx                    # Main app component
+├── main.tsx                   # App entry point
+└── providers.tsx              # Context providers
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## API Endpoints
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Shorten URL**: `GET http://localhost:5171/shorten?originalUrl={url}`
+- **Generate QR**: `GET http://localhost:5172/generateqr?originalUrl={url}`
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Development
+
+- **Linting**: `npm run lint`
+- **Type checking**: Built into Vite build process
+- **Hot reload**: Enabled by default in development mode
