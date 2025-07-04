@@ -55,7 +55,7 @@ const ShortLinkForm = ({ formToggle }: ShortLinkFormProps) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5171/shorten?originalUrl=${originalUrl}`
+        `${import.meta.env.VITE_API_URL_SHORTENER}/shorten?originalUrl=${originalUrl}`
       );
       console.log(response);
 

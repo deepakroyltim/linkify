@@ -42,7 +42,7 @@ const QRCodeForm = ({ formToggle }: QRCodeFormProps) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5172/generateqr?originalUrl=${originalUrl}`
+        `${import.meta.env.VITE_API_QR_GENERATOR}/generateqr?originalUrl=${originalUrl}`
       );
       console.log(response);
 

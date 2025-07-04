@@ -27,6 +27,20 @@ Before running the application, ensure you have the following backend services r
 - URL Shortener API: `http://localhost:5171`
 - QR Code Generator API: `http://localhost:5172`
 
+## Environment Variables
+
+Copy `.env.example` to `.env` and update the values:
+
+```bash
+cp .env.example .env
+```
+
+Configure your API endpoints:
+```
+VITE_API_URL_SHORTENER=http://localhost:5171
+VITE_API_QR_GENERATOR=http://localhost:5172
+```
+
 ## Getting Started
 
 1. **Install dependencies**:
@@ -34,17 +48,23 @@ Before running the application, ensure you have the following backend services r
    npm install
    ```
 
-2. **Start development server**:
+2. **Setup environment variables**:
+   ```bash
+   cp .env.example .env
+   ```
+   Update the API URLs in `.env` file as needed.
+
+3. **Start development server**:
    ```bash
    npm run dev
    ```
 
-3. **Build for production**:
+4. **Build for production**:
    ```bash
    npm run build
    ```
 
-4. **Preview production build**:
+5. **Preview production build**:
    ```bash
    npm run preview
    ```
