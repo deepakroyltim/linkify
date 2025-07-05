@@ -59,15 +59,13 @@ const ShortLinkForm = ({ formToggle, isAuthenticated }: ShortLinkFormProps) => {
       const user = authService.getCurrentUser();
       const userId = user ? user.id : null;
 
-      const url = userId
-        ? `${
-            import.meta.env.VITE_API_URL_SHORTENER
-          }/shorten?originalUrl=${originalUrl}&userId=${userId}`
-        : `${
-            import.meta.env.VITE_API_URL_SHORTENER
-          }/shorten?originalUrl=${originalUrl}`;
+      const apiURL = import.meta.env.VITE_API_URL_SHORTENER;
 
-      const response = await fetch(url);
+      const response = await fetch(`${apiURL}/shorten`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ originalUrl, userId }),
+      });
       console.log(response);
 
       if (!response.ok) {

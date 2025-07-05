@@ -18,7 +18,7 @@ const Pricing = () => {
           </div>
 
           {/* Free Plan */}
-          <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 mb-12 border-2 border-primary">
+          <div className="bg-gradient-to-br bg-white dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 mb-12 border-2 border-primary">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold mb-2">Free Forever</h2>
               <div className="flex justify-center items-center text-5xl space-x-2 text-primary my-4">
@@ -34,7 +34,7 @@ const Pricing = () => {
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <FaCheck className="text-green-500 flex-shrink-0" />
+                  <FaCheck className="text-green-500" />
                   <span>Unlimited URL shortening</span>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -135,9 +135,10 @@ const Pricing = () => {
               </Button>
             </div>
 
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="flex justify-center items-center text-sm text-gray-500 dark:text-gray-400">
               All donations are voluntary and help us keep Linkify free for
-              everyone. Thank you for your support! ❤️
+              everyone. Thank you for your support!{" "}
+              <FaHeart className="text-pink-500 ms-2" />
             </p>
           </div>
         </div>

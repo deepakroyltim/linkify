@@ -129,6 +129,7 @@ const NavbarComponent = () => {
                   <DropdownItem
                     key="settings"
                     startContent={<MdSettings className="text-lg" />}
+                    onPress={() => navigate("/settings")}
                   >
                     Settings
                   </DropdownItem>

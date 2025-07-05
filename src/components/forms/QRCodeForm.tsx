@@ -11,6 +11,7 @@ import React, { useRef, useState } from "react";
 import { BsArrowRight, BsDownload } from "react-icons/bs";
 import ConfettiBurst from "../animations/ConfettiBurst";
 import { AnimatePresence } from "framer-motion";
+import { authService } from "../../services/authService";
 
 interface QRCodeFormProps {
   formToggle: React.Dispatch<React.SetStateAction<number>>;
@@ -41,19 +42,25 @@ const QRCodeForm = ({ formToggle, isAuthenticated }: QRCodeFormProps) => {
     const formData = new FormData(event.currentTarget);
     const originalUrl = formData.get("originalUrl");
 
-    try {
-      const response = await fetch(
-        `${
-          import.meta.env.VITE_API_QR_GENERATOR
-        }/generateqr?originalUrl=${originalUrl}`
-      );
-      console.log(response);
+    const apiURL = import.meta.env.VITE_API_QR_GENERATOR;
 
-      if (!response.ok) {
-        throw new Error("Failed to generate QR Code");
-      }
+    try {
+      const user = authService.getCurrentUser();
+      const userId = user ? user.id : null;
+
+      const response = await fetch(`${apiURL}/generateqr`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ originalUrl, userId }),
+      });
 
       const data = await response.json();
+      if (!response.ok) {
+        throw new Error(
+          data.error || data.message || "Failed to generate QR Code"
+        );
+      }
+
       setQRCode(data.rawCode as string);
 
       addToast({

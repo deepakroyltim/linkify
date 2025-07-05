@@ -7,27 +7,27 @@ import {
   TableRow,
   TableCell,
   Button,
-  Link,
   Spinner,
   Alert,
   addToast,
 } from "@heroui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { BsCopy, BsTrash } from "react-icons/bs";
+import { BsCopy, BsDownload, BsTrash } from "react-icons/bs";
 import { authService } from "../services/authService";
 import Layout from "../components/layout/Layout";
 
-interface ShortLink {
+interface LinksProps {
   _id: string;
   originalUrl: string;
   shortCode: string;
   createdAt: string;
   clicks: number;
+  type: string;
   userId?: string;
 }
 
 const Dashboard = () => {
-  const [links, setLinks] = useState<ShortLink[]>([]);
+  const [links, setLinks] = useState<LinksProps[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -84,6 +84,17 @@ const Dashboard = () => {
         timeout: 2000,
       });
     }
+  };
+
+  const downloadQRCode = (qrCode: string) => {
+    if (!qrCode) return;
+
+    const link = document.createElement("a");
+    link.href = qrCode;
+    link.download = "qr-code.png"; // You can customize the filename
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const deleteLink = async (linkId: string) => {
@@ -169,7 +180,7 @@ const Dashboard = () => {
               <Table aria-label="Links table">
                 <TableHeader>
                   <TableColumn>SL</TableColumn>
-                  <TableColumn>SHORT LINK</TableColumn>
+                  <TableColumn>TYPE</TableColumn>
                   <TableColumn>ORIGINAL URL</TableColumn>
                   <TableColumn>CREATED</TableColumn>
                   <TableColumn>CLICKS</TableColumn>
@@ -180,18 +191,9 @@ const Dashboard = () => {
                     <TableRow key={link._id}>
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>
-                        <Link
-                          isExternal
-                          showAnchorIcon
-                          href={`${import.meta.env.VITE_API_URL_SHORTENER}/${
-                            link.shortCode
-                          }`}
-                          className="font-medium"
-                        >
-                          {`${import.meta.env.VITE_API_URL_SHORTENER}/${
-                            link.shortCode
-                          }`}
-                        </Link>
+                        {link.type == "shortCode"
+                          ? "URL Short Code"
+                          : "QR Code"}
                       </TableCell>
                       <TableCell>
                         <div className="max-w-xs truncate text-gray-600">
@@ -208,19 +210,30 @@ const Dashboard = () => {
                       </TableCell>
                       <TableCell>
                         <div className="flex justify-start">
-                          <Button
-                            size="sm"
-                            variant="light"
-                            onPress={() =>
-                              copyLink(
-                                `${import.meta.env.VITE_API_URL_SHORTENER}/${
-                                  link.shortCode
-                                }`
-                              )
-                            }
-                          >
-                            <BsCopy className="w-5 h-5" />
-                          </Button>
+                          {link.type == "qrCode" ? (
+                            <Button
+                              variant="light"
+                              size="sm"
+                              onPress={() => downloadQRCode(link.shortCode)}
+                            >
+                              <BsDownload className="w-5 h-5" />
+                            </Button>
+                          ) : (
+                            <Button
+                              size="sm"
+                              variant="light"
+                              onPress={() =>
+                                copyLink(
+                                  `${import.meta.env.VITE_API_URL_SHORTENER}/${
+                                    link.shortCode
+                                  }`
+                                )
+                              }
+                            >
+                              <BsCopy className="w-5 h-5" />
+                            </Button>
+                          )}
+
                           <Button
                             size="sm"
                             variant="light"
