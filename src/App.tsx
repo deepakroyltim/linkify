@@ -9,6 +9,7 @@ import FAQ from "./pages/FAQ";
 import Pricing from "./pages/Pricing";
 import Guide from "./pages/Guide";
 import Contact from "./pages/Contact";
+import Settings from "./pages/Settings";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
@@ -29,6 +30,11 @@ function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/guide" element={<Guide />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/settings" element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          } />
         </Routes>
       </Router>
     </ThemeProvider>
