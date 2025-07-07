@@ -215,7 +215,6 @@ const SignUp = () => {
 
       {/* Right Column - Branding */}
       <AuthBranding
-        title="Join Linkify"
         subtitle="Build meaningful connections with branded links"
         features={[
           "Free to get started",

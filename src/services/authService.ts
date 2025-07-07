@@ -1,7 +1,7 @@
 import type { SignUpData, SignInData, AuthResponse } from "../types/User";
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_AUTH_URL || "http://localhost:5173/api";
+  import.meta.env.VITE_API_URL || "http://localhost:5173/api";
 
 export const authService = {
   async signUp(userData: SignUpData): Promise<AuthResponse> {
@@ -21,18 +21,18 @@ export const authService = {
         const errorData = await response.json();
         return {
           success: false,
-          message: errorData.message || 'Signup failed'
+          message: errorData.message || "Signup failed",
         };
       }
 
       const data = await response.json();
-      
+
       // Store token if signup successful
       if (data.success && data.token) {
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem("authToken", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
       }
-      
+
       return data;
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -62,18 +62,18 @@ export const authService = {
         const errorData = await response.json();
         return {
           success: false,
-          message: errorData.message || 'Login failed'
+          message: errorData.message || "Login failed",
         };
       }
 
       const data = await response.json();
-      
+
       // Store token if login successful
       if (data.success && data.token) {
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
+        localStorage.setItem("authToken", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
       }
-      
+
       return data;
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -91,19 +91,19 @@ export const authService = {
 
   // Get current user from localStorage
   getCurrentUser() {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem("user");
     return user ? JSON.parse(user) : null;
   },
 
   // Get auth token
   getToken() {
-    return localStorage.getItem('authToken');
+    return localStorage.getItem("authToken");
   },
 
   // Logout user
   logout() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('user');
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
   },
 
   // Check if user is authenticated

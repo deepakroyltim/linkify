@@ -41,7 +41,7 @@ const Dashboard = () => {
       if (!user) return;
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL_SHORTENER}/user/${user.id}/links`,
+        `${import.meta.env.VITE_API_URL}/links/user/${user.id}/`,
         {
           headers: {
             Authorization: `Bearer ${authService.getToken()}`,
@@ -102,7 +102,7 @@ const Dashboard = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL_SHORTENER}/delete/${linkId}`,
+        `${import.meta.env.VITE_API_URL}/links/delete/${linkId}`,
         {
           method: "DELETE",
           headers: {
@@ -147,10 +147,10 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex justify-between">
-            <h1 className="text-3xl font-bold mb-8">My Dashboard</h1>
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl font-bold">My Dashboard</h1>
             {links.length > 0 && (
               <Button
                 color="primary"
@@ -166,9 +166,9 @@ const Dashboard = () => {
           {error && <Alert color="danger" className="mb-6" title={error} />}
 
           {links.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-16 bg-gray-50 dark:bg-gray-800 rounded-2xl">
-              <h3 className="text-xl font-semibold mb-4">No links yet</h3>
-              <p className="text-gray-600 mb-6">
+            <div className="flex flex-col items-center justify-center py-12 sm:py-16 bg-gray-50 dark:bg-gray-800 rounded-2xl text-center">
+              <h3 className="text-lg sm:text-xl font-semibold mb-4">No links yet</h3>
+              <p className="text-gray-600 mb-6 px-4">
                 Start creating shortened links to see them here
               </p>
               <Button color="primary" as={RouterLink} to="/#form-section">
@@ -176,61 +176,64 @@ const Dashboard = () => {
               </Button>
             </div>
           ) : (
-            <div className="bg-white dark:bg-gray-800 rounded-2xl">
-              <Table aria-label="Links table">
-                <TableHeader>
-                  <TableColumn>SL</TableColumn>
-                  <TableColumn>TYPE</TableColumn>
-                  <TableColumn>ORIGINAL URL</TableColumn>
-                  <TableColumn>CREATED</TableColumn>
-                  <TableColumn>CLICKS</TableColumn>
-                  <TableColumn>ACTIONS</TableColumn>
-                </TableHeader>
+            <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden">
+              <div className="overflow-x-auto">
+                <Table aria-label="Links table" className="min-w-full">
+                  <TableHeader>
+                    <TableColumn className="hidden sm:table-cell">SL</TableColumn>
+                    <TableColumn>TYPE</TableColumn>
+                    <TableColumn>URL</TableColumn>
+                    <TableColumn className="hidden md:table-cell">CREATED</TableColumn>
+                    <TableColumn className="hidden sm:table-cell">CLICKS</TableColumn>
+                    <TableColumn>ACTIONS</TableColumn>
+                  </TableHeader>
                 <TableBody>
                   {links.map((link, index) => (
                     <TableRow key={link._id}>
-                      <TableCell>{index + 1}</TableCell>
+                      <TableCell className="hidden sm:table-cell">{index + 1}</TableCell>
                       <TableCell>
-                        {link.type == "shortCode"
-                          ? "URL Short Code"
-                          : "QR Code"}
+                        <span className="text-xs sm:text-sm">
+                          {link.type == "shortCode" ? "URL" : "QR"}
+                        </span>
                       </TableCell>
                       <TableCell>
-                        <div className="max-w-xs truncate text-gray-600">
+                        <div className="max-w-[120px] sm:max-w-xs truncate text-gray-600 text-xs sm:text-sm">
                           {link.originalUrl}
                         </div>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <span className="text-sm text-gray-500">
                           {new Date(link.createdAt).toLocaleDateString()}
                         </span>
                       </TableCell>
-                      <TableCell>
-                        <span className="font-medium">{link.clicks || 0}</span>
+                      <TableCell className="hidden sm:table-cell">
+                        <span className="font-medium text-sm">{link.clicks || 0}</span>
                       </TableCell>
                       <TableCell>
-                        <div className="flex justify-start">
+                        <div className="flex justify-start gap-1">
                           {link.type == "qrCode" ? (
                             <Button
                               variant="light"
                               size="sm"
+                              isIconOnly
                               onPress={() => downloadQRCode(link.shortCode)}
                             >
-                              <BsDownload className="w-5 h-5" />
+                              <BsDownload className="w-4 h-4" />
                             </Button>
                           ) : (
                             <Button
                               size="sm"
                               variant="light"
+                              isIconOnly
                               onPress={() =>
                                 copyLink(
-                                  `${import.meta.env.VITE_API_URL_SHORTENER}/${
+                                  `${import.meta.env.VITE_API_BASE_URL}/${
                                     link.shortCode
                                   }`
                                 )
                               }
                             >
-                              <BsCopy className="w-5 h-5" />
+                              <BsCopy className="w-4 h-4" />
                             </Button>
                           )}
 
@@ -238,16 +241,18 @@ const Dashboard = () => {
                             size="sm"
                             variant="light"
                             color="danger"
+                            isIconOnly
                             onPress={() => deleteLink(link._id)}
                           >
-                            <BsTrash className="w-5 h-5" />
+                            <BsTrash className="w-4 h-4" />
                           </Button>
                         </div>
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
+                </Table>
+              </div>
             </div>
           )}
         </div>

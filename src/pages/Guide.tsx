@@ -74,13 +74,13 @@ const Guide = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
-            <FaBookOpen className="text-6xl text-primary mx-auto mb-6" />
-            <h1 className="text-4xl font-bold mb-4">How to Use Linkify</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+          <div className="text-center mb-12 sm:mb-16">
+            <FaBookOpen className="text-4xl sm:text-6xl text-primary mx-auto mb-4 sm:mb-6" />
+            <h1 className="text-3xl sm:text-4xl font-bold mb-4">How to Use Linkify</h1>
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300">
               Follow this step-by-step guide to master all Linkify features
             </p>
           </div>
@@ -88,26 +88,26 @@ const Guide = () => {
           {/* Vertical Stepper */}
           <div className="relative">
             {/* Vertical Line */}
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
+            <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600"></div>
 
             {steps.map((step, index) => (
               <div
                 key={index}
-                className="relative flex items-start mb-12 last:mb-0"
+                className="relative flex items-start mb-8 sm:mb-12 last:mb-0"
               >
                 {/* Step Circle */}
-                <div className="relative z-10 flex items-center justify-center w-16 h-16 bg-primary rounded-full text-white shadow-lg">
-                  <step.icon className="text-2xl" />
+                <div className="relative z-10 flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-full text-white shadow-lg flex-shrink-0">
+                  <step.icon className="text-lg sm:text-2xl" />
                 </div>
 
                 {/* Step Content */}
-                <div className="ml-8 flex-1">
-                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm">
-                    <div className="flex items-center mb-4">
-                      <span className="bg-primary text-white text-sm font-bold px-3 py-1 rounded-full mr-4">
+                <div className="ml-4 sm:ml-8 flex-1">
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-6 shadow-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center mb-4 gap-2 sm:gap-0">
+                      <span className="bg-primary text-white text-xs sm:text-sm font-bold px-2 sm:px-3 py-1 rounded-full mr-0 sm:mr-4 self-start">
                         Step {index + 1}
                       </span>
-                      <h3 className="text-xl font-bold">{step.title}</h3>
+                      <h3 className="text-lg sm:text-xl font-bold">{step.title}</h3>
                     </div>
 
                     <p className="text-gray-600 dark:text-gray-300 mb-4">
@@ -131,13 +131,13 @@ const Guide = () => {
           </div>
 
           {/* Call to Action */}
-          <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 text-center mt-16">
-            <h2 className="text-2xl font-bold mb-4">Ready to Get Started?</h2>
+          <div className="bg-gradient-to-br from-primary-50 to-secondary-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 text-center mt-12 sm:mt-16">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
               Join thousands of users who trust Linkify for their link
               management needs
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <button
                 className="bg-primary text-white px-6 py-3 rounded-2xl font-semibold hover:bg-primary-600 transition-colors"
                 onClick={() => {

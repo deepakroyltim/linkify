@@ -3,6 +3,9 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
   Link,
   Button,
   Dropdown,
@@ -21,11 +24,26 @@ import { useTheme } from "../../hooks/useTheme";
 import type { User } from "../../types/User";
 
 const NavbarComponent = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const menuItems = [
+    { name: "Guide", path: "/guide" },
+    { name: "About", path: "/about" },
+    { name: "FAQ", path: "/faq" },
+    { name: "Pricing", path: "/pricing" },
+    ...(isAuthenticated ? [
+      { name: "Dashboard", path: "/dashboard" },
+      { name: "Settings", path: "/settings" }
+    ] : [
+      { name: "Login", path: "/signin" },
+      { name: "Sign Up", path: "/signup" }
+    ])
+  ];
 
   useEffect(() => {
     const currentUser = authService.getCurrentUser();
@@ -45,16 +63,23 @@ const NavbarComponent = () => {
       isBlurred
       className="shadow bg-amber-50/80 dark:bg-gray-800/80 backdrop-blur-md border-b border-divider"
     >
-      <NavbarBrand>
-        <Link as={RouterLink} to="/" color="foreground" className="flex">
-          <h1 className="flex justify-center items-center text-3xl font-bold space-x-0">
-            <FaPaperclip className="text-primary me-2" />
-            <span className="text-primary">Li</span>
-            <span>nki</span>
-            <span className="text-primary">fy</span>
-          </h1>
-        </Link>
-      </NavbarBrand>
+      <NavbarContent>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+        />
+        <NavbarBrand>
+          <Link as={RouterLink} to="/" color="foreground" className="flex">
+            <h1 className="flex justify-center items-center text-3xl font-bold space-x-0">
+              <FaPaperclip className="text-primary me-2" />
+              <span className="text-primary">Li</span>
+              <span>nki</span>
+              <span className="text-primary">fy</span>
+            </h1>
+          </Link>
+        </NavbarBrand>
+      </NavbarContent>
+
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem isActive={location.pathname === "/guide"}>
           <Link as={RouterLink} to="/guide" color="foreground">
@@ -165,6 +190,37 @@ const NavbarComponent = () => {
           </>
         )}
       </NavbarContent>
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item.name}-${index}`}>
+            <Link
+              as={RouterLink}
+              className="w-full"
+              color={item.name === "Sign Up" ? "primary" : "foreground"}
+              to={item.path}
+              size="lg"
+              onPress={() => setIsMenuOpen(false)}
+            >
+              {item.name}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+        {isAuthenticated && (
+          <NavbarMenuItem>
+            <Link
+              className="w-full"
+              color="danger"
+              size="lg"
+              onPress={() => {
+                handleLogout();
+                setIsMenuOpen(false);
+              }}
+            >
+              Logout
+            </Link>
+          </NavbarMenuItem>
+        )}
+      </NavbarMenu>
     </Navbar>
   );
 };
