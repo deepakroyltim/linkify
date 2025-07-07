@@ -59,9 +59,9 @@ const ShortLinkForm = ({ formToggle, isAuthenticated }: ShortLinkFormProps) => {
       const user = authService.getCurrentUser();
       const userId = user ? user.id : null;
 
-      const apiURL = import.meta.env.VITE_API_URL_SHORTENER;
+      const apiURL = import.meta.env.VITE_API_URL;
 
-      const response = await fetch(`${apiURL}/shorten`, {
+      const response = await fetch(`${apiURL}/links/shorten`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ originalUrl, userId }),
@@ -108,7 +108,7 @@ const ShortLinkForm = ({ formToggle, isAuthenticated }: ShortLinkFormProps) => {
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 dark:bg-gray-800 dark:border dark:border-gray-600 rounded-2xl p-6 gap-6 shadow-lg">
+    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 dark:bg-gray-800 dark:border dark:border-gray-600 rounded-2xl p-4 md:p-6 gap-6 shadow-lg">
       <AnimatePresence>{showConfetti && <ConfettiBurst />}</AnimatePresence>
 
       <div className="relative flex flex-col md:flex-row justify-between items-center w-full gap-6">
@@ -144,10 +144,10 @@ const ShortLinkForm = ({ formToggle, isAuthenticated }: ShortLinkFormProps) => {
         </div>
 
         {/* Right Section - Image */}
-        <div className="w-full md:w-auto">
+        <div className="w-full md:w-auto flex justify-center">
           <Image
             alt="URL Shortener illustration"
-            className="object-cover rounded-xl shadow-md"
+            className="object-cover rounded-xl max-w-full h-auto"
             src="/url-shortener.svg"
             width={270}
           />
@@ -156,34 +156,39 @@ const ShortLinkForm = ({ formToggle, isAuthenticated }: ShortLinkFormProps) => {
 
       {/* Short Link Display */}
       {shortLink && (
-        <div className="w-full bg-white dark:bg-gray-700 border-blue-600 dark:border-gray-600 border-1 shadow-md rounded-2xl p-6 space-y-10">
-          <div className="flex md:flex-row justify-between items-center">
-            <div className="">
-              <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-white">
+        <div className="w-full rounded-2xl p-4 md:p-6 space-y-6 bg-white dark:bg-gray-700 border-blue-600 dark:border-gray-600 border-1 shadow-md">
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-6">
+            <div className="flex-1 text-center lg:text-left">
+              <h2 className="text-lg font-semibold mb-4 text-gray-800 dark:text-white">
                 Your new short link:
               </h2>
-              <div className="flex items-center space-x-4">
-                <Link isExternal showAnchorIcon href={shortLink}>
+              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+                <Link 
+                  isExternal 
+                  showAnchorIcon 
+                  href={shortLink}
+                  className="break-all text-sm sm:text-base"
+                >
                   {shortLink}
                 </Link>
-                <div>|</div>
                 <Tooltip content="Copy link">
                   <Button
                     isDisabled={copied}
                     color="default"
-                    className="max-w-xs"
                     size="sm"
                     onPress={() => copyLink(shortLink)}
                   >
-                    <BsCopy className="w-5 h-5" />
+                    <BsCopy className="w-4 h-4" /> Copy
                   </Button>
                 </Tooltip>
               </div>
             </div>
 
-            <div className="hidden md:block w-px h-12 bg-gray-300 dark:bg-gray-600" />
+            {/* Divider */}
+            <div className="hidden lg:block w-px h-12 bg-gray-300 dark:bg-gray-600" />
+            <div className="lg:hidden w-full h-px bg-gray-300 dark:bg-gray-600" />
 
-            <div>
+            <div className="flex justify-center">
               <Button color="primary" onPress={() => formToggle(2)}>
                 Let's Create QR Code
               </Button>

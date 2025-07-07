@@ -58,15 +58,15 @@ const FAQ = () => {
 
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            <FaCircleQuestion className="text-6xl text-primary mx-auto mb-6" />
-            <h1 className="text-4xl font-bold mb-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <FaCircleQuestion className="text-4xl sm:text-6xl text-primary mx-auto mb-4 sm:mb-6" />
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
               Frequently Asked Questions
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300">
               Find answers to common questions about Linkify
             </p>
           </div>
@@ -88,8 +88,8 @@ const FAQ = () => {
           </Accordion>
 
           {/* Contact Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 text-center mt-8 shadow-sm">
-            <h2 className="text-2xl font-bold mb-4">Still have questions?</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 text-center mt-6 sm:mt-8 shadow-sm">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">Still have questions?</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
               Can't find the answer you're looking for? We're here to help!
             </p>

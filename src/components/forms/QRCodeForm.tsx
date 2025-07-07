@@ -42,13 +42,13 @@ const QRCodeForm = ({ formToggle, isAuthenticated }: QRCodeFormProps) => {
     const formData = new FormData(event.currentTarget);
     const originalUrl = formData.get("originalUrl");
 
-    const apiURL = import.meta.env.VITE_API_QR_GENERATOR;
+    const apiURL = import.meta.env.VITE_API_URL;
 
     try {
       const user = authService.getCurrentUser();
       const userId = user ? user.id : null;
 
-      const response = await fetch(`${apiURL}/generateqr`, {
+      const response = await fetch(`${apiURL}/links/generateqr`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ originalUrl, userId }),
@@ -96,7 +96,7 @@ const QRCodeForm = ({ formToggle, isAuthenticated }: QRCodeFormProps) => {
   };
 
   return (
-    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 dark:bg-gray-800 dark:border dark:border-gray-600 rounded-2xl p-6 gap-6 shadow-lg">
+    <div className="relative flex flex-col items-center w-full max-w-4xl bg-amber-50 dark:bg-gray-800 dark:border dark:border-gray-600 rounded-2xl p-4 md:p-6 gap-6 shadow-lg">
       <AnimatePresence>{showConfetti && <ConfettiBurst />}</AnimatePresence>
 
       <div className="relative flex flex-col md:flex-row justify-between items-center w-full gap-6">
@@ -132,10 +132,10 @@ const QRCodeForm = ({ formToggle, isAuthenticated }: QRCodeFormProps) => {
         </div>
 
         {/* Right Section - Image */}
-        <div className="w-full md:w-auto">
+        <div className="w-full md:w-auto flex justify-center">
           <Image
             alt="QR Code Generator illustration"
-            className="object-cover rounded-xl"
+            className="object-cover rounded-xl max-w-full h-auto"
             src="/qr-generator.svg"
             width={270}
           />
@@ -149,34 +149,32 @@ const QRCodeForm = ({ formToggle, isAuthenticated }: QRCodeFormProps) => {
             Your new QR Code:
           </h2>
 
-          <div className="flex md:flex-row justify-between items-center">
-            {/* Left Section: QR Code and Download Button Side-by-Side */}
-            <div className="flex-1 flex justify-center">
-              <div className="flex items-center space-x-6">
-                <Image
-                  src={qrCode}
-                  alt="QR Code"
-                  className="w-64 h-64"
-                  isBlurred
-                />
-                <Tooltip content="Copy link">
-                  <Button
-                    color="default"
-                    className="max-w-xs"
-                    size="sm"
-                    onPress={() => downloadQRCode()}
-                  >
-                    <BsDownload className="w-5 h-5" />
-                  </Button>
-                </Tooltip>
-              </div>
+          <div className="flex flex-col lg:flex-row justify-center items-center gap-6">
+            {/* QR Code Section */}
+            <div className="flex flex-col items-center space-y-4">
+              <Image
+                src={qrCode}
+                alt="QR Code"
+                className="w-48 h-48 sm:w-64 sm:h-64 max-w-full"
+                isBlurred
+              />
+              <Tooltip content="Download QR Code">
+                <Button
+                  color="default"
+                  size="sm"
+                  onPress={() => downloadQRCode()}
+                >
+                  <BsDownload className="w-5 h-5" /> Download
+                </Button>
+              </Tooltip>
             </div>
 
             {/* Divider */}
-            <div className="hidden md:block w-px h-12 bg-gray-300 dark:bg-gray-600" />
+            <div className="hidden lg:block w-px h-12 bg-gray-300 dark:bg-gray-600" />
+            <div className="lg:hidden w-full h-px bg-gray-300 dark:bg-gray-600" />
 
-            {/* Right Section: Create Short Link Button */}
-            <div className="flex-1 flex justify-center">
+            {/* Action Button */}
+            <div className="flex justify-center">
               <Button color="primary" onPress={() => formToggle(1)}>
                 Let's Create Short Link
               </Button>

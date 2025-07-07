@@ -1,12 +1,11 @@
 import { FaPaperclip } from "react-icons/fa6";
 
 interface AuthBrandingProps {
-  title: string;
   subtitle: string;
   features: string[];
 }
 
-const AuthBranding = ({ title, subtitle, features }: AuthBrandingProps) => {
+const AuthBranding = ({ subtitle, features }: AuthBrandingProps) => {
   return (
     <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 to-purple-700 dark:from-gray-700 dark:to-gray-800 items-center justify-center p-8">
       <div className="text-center text-white">

@@ -193,7 +193,6 @@ const SignIn = () => {
 
       {/* Right Column - Branding */}
       <AuthBranding
-        title="Welcome Back"
         subtitle="Your all-in-one platform for branded links and QR codes"
         features={[
           "Shorten URLs instantly",

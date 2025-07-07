@@ -5,24 +5,24 @@ import Layout from "../components/layout/Layout";
 const Pricing = () => {
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl font-bold mb-4">
+          <div className="text-center mb-12 sm:mb-16">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-4">
               Simple, Transparent Pricing
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300">
               Everything you need is completely free. Forever.
             </p>
           </div>
 
           {/* Free Plan */}
-          <div className="bg-gradient-to-br bg-white dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 mb-12 border-2 border-primary">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold mb-2">Free Forever</h2>
-              <div className="flex justify-center items-center text-5xl space-x-2 text-primary my-4">
-                <FaIndianRupeeSign className="text-5xl" />
+          <div className="bg-gradient-to-br bg-white dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 mb-8 sm:mb-12 border-2 border-primary">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-2">Free Forever</h2>
+              <div className="flex justify-center items-center text-4xl sm:text-5xl space-x-2 text-primary my-4">
+                <FaIndianRupeeSign className="text-4xl sm:text-5xl" />
                 <span>0</span>
               </div>
 
@@ -31,7 +31,7 @@ const Pricing = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <FaCheck className="text-green-500" />
@@ -89,8 +89,8 @@ const Pricing = () => {
           </div>
 
           {/* Why Free Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 mb-12 shadow-sm">
-            <h2 className="text-2xl font-bold mb-4 text-center">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 mb-8 sm:mb-12 shadow-sm">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center">
               Why is Linkify Free?
             </h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-center mb-6">
@@ -107,16 +107,16 @@ const Pricing = () => {
           </div>
 
           {/* Donation Section */}
-          <div className="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-purple-900 rounded-2xl p-8 text-center shadow-sm">
-            <FaHeart className="text-4xl text-pink-500 mx-auto mb-4" />
-            <h2 className="text-2xl font-bold mb-4">Support Our Mission</h2>
+          <div className="bg-gradient-to-br from-pink-50 to-purple-50 dark:from-gray-800 dark:to-purple-900 rounded-2xl p-6 sm:p-8 text-center shadow-sm">
+            <FaHeart className="text-3xl sm:text-4xl text-pink-500 mx-auto mb-4" />
+            <h2 className="text-xl sm:text-2xl font-bold mb-4">Support Our Mission</h2>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
               Love using Linkify? Help us keep it free for everyone! Your
               donations help us maintain our servers, develop new features, and
               continue providing this service to users worldwide.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-6">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-3 sm:gap-4 mb-6">
               <Button color="secondary" variant="bordered">
                 <FaGift className="mr-2" />
                 $5
